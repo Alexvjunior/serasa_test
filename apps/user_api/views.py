@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from rest_framework import viewsets
+from apps.user_api.serializers import UserAPISerializer
+from apps.user_api.models import User
 
-# Create your views here.
+
+class UserAPIViewSet(viewsets.ModelViewSet):
+    serializer_class = UserAPISerializer
+    queryset = User.objects.all()
+    http_method_names = ["post", "patch", "get", "delete"]
