@@ -1,13 +1,13 @@
 version: '3'
 services:
   db:
-    image: postgres:13
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
+    image: postgres
     environment:
-      - POSTGRES_DB=serasa_test
-      - POSTGRES_USER=serasa_test
-      - POSTGRES_PASSWORD=serasa_test
+      POSTGRES_DB: db_name
+      POSTGRES_USER: db_user
+      POSTGRES_PASSWORD: db_password
+      POSTGRES_HOST: db_host
+      POSTGRES_PORT: db_port
 
   web:
     build:
