@@ -1,17 +1,21 @@
 from django.test import TestCase
 from django.urls import reverse
 from rest_framework.test import APIClient
-from ..models import User
 from rest_framework import status
-
 from apps.user_api.models import User
+import pytest
+from django.contrib.auth.models import User as UserDjango
 
 
 class UserTestCase(TestCase):
     def setUp(self):
-        self.client = APIClient()
+        self.user_django = UserDjango.objects.create_user(
+            username='testuser', password='testpassword')
         self.user = User.objects.create(
             name='John Doe', cpf='12345678901', email='johndoe@example.com', phone_number='1234567890')
+        self.client = APIClient()
+        self.client_not_authorization = APIClient()
+        self.client.force_authenticate(user=self.user_django)
 
     def test_user_list(self):
         url = reverse('user-list')
@@ -119,3 +123,23 @@ class UserTestCase(TestCase):
         url = reverse('user-detail', args=[9999])
         response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_delete_without_authorization(self):
+        url = reverse('user-detail', args=[9999])
+        response = self.client_not_authorization.delete(url)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_update_without_authorization(self):
+        url = reverse('user-detail', args=[self.user.id])
+        response = self.client_not_authorization.patch(url, data={})
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_retrieve_without_authorization(self):
+        url = reverse('user-detail', args=[9999])
+        response = self.client_not_authorization.get(url)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_create_user_without_authorization(self):
+        url = reverse('user-list')
+        response = self.client_not_authorization.post(url, data={})
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
