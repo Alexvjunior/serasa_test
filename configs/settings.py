@@ -53,21 +53,6 @@ REST_FRAMEWORK = {
     ],
 }
 
-SWAGGER_SETTINGS = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ],
-    'DEFAULT_AUTO_SCHEMA_CLASS': 'drf_yasg.openapi.AutoSchema',
-    'SECURITY_DEFINITIONS': {
-        'Token': {
-            'type': 'apiKey',
-            'name': 'Authorization',
-            'in': 'header',
-            'description': 'JWT Authorization header using the Bearer scheme. Example: "Token {token}"',
-        },
-    },
-    'USE_SESSION_AUTH': False,
-}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

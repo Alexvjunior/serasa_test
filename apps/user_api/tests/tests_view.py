@@ -3,23 +3,26 @@ from django.urls import reverse
 from rest_framework.test import APIClient
 from rest_framework import status
 from apps.user_api.models import User
+import pytest
+from django.contrib.auth.models import User as UserDjango
 
 
 class UserTestCase(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user(username='testuser', password='testpassword')
-        self.token = self.client.post('token/', {'username':self.user.username})
         self.client = APIClient()
+        self.user_django = UserDjango.objects.create_user(username='testuser', password='testpassword')
         self.user = User.objects.create(
             name='John Doe', cpf='12345678901', email='johndoe@example.com', phone_number='1234567890')
 
     def test_user_list(self):
+        self.client.force_authenticate(user=self.user_django)
         url = reverse('user-list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()['count'], 1)
 
     def test_create_user(self):
+        self.client.force_authenticate(user=self.user_django)
         new_user_data = {
             "name": "Jane Smith",
             "cpf": "1234567890",
@@ -46,6 +49,7 @@ class UserTestCase(TestCase):
             response_data['phone_number'], new_user_data['phone_number'])
 
     def test_retrieve_user(self):
+        self.client.force_authenticate(user=self.user_django)
         url = reverse('user-detail', args=[self.user.id])
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -58,6 +62,7 @@ class UserTestCase(TestCase):
         self.assertEqual(response_data['phone_number'], self.user.phone_number)
 
     def test_update_user(self):
+        self.client.force_authenticate(user=self.user_django)
         url = reverse('user-detail', args=[self.user.id])
 
         valid_data = {
@@ -71,11 +76,13 @@ class UserTestCase(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_delete_user(self):
+        self.client.force_authenticate(user=self.user_django)
         url = reverse('user-detail', args=[self.user.id])
         response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
     def test_create_user_with_invalid_data(self):
+        self.client.force_authenticate(user=self.user_django)
         invalid_data = {
             'name': '',
             'cpf': '123',
@@ -94,11 +101,13 @@ class UserTestCase(TestCase):
         )
 
     def test_retrieve_nonexistent_user(self):
+        self.client.force_authenticate(user=self.user_django)
         url = reverse('user-detail', args=[9999])
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_update_user_with_invalid_data(self):
+        self.client.force_authenticate(user=self.user_django)
         url = reverse('user-detail', args=[self.user.id])
 
         invalid_data = {
@@ -116,6 +125,7 @@ class UserTestCase(TestCase):
         )
 
     def test_delete_nonexistent_user(self):
+        self.client.force_authenticate(user=self.user_django)
         url = reverse('user-detail', args=[9999])
         response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
