@@ -1,6 +1,7 @@
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.authtoken.models import Token
 from apps.user_api.serializers import UserAPISerializer
 from apps.user_api.models import User
 from rest_framework.views import APIView
@@ -33,7 +34,11 @@ class TokenObtainView(APIView):
         user = authenticate(username=username, password=password)
 
         if user is not None:
-            token = RefreshToken.for_user(user)
-            return Response({'token': str(token.access_token)})
+            token, created = Token.objects.get_or_create(user=user)
+            return Response({
+                'token': token.key,
+            })
+            # token = RefreshToken.for_user(user)
+            # return Response({'token': str(token.access_token)})
         else:
             return Response({'error': 'Credenciais inválidas'}, status=status.HTTP_401_UNAUTHORIZE)
