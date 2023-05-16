@@ -6,3 +6,5 @@ django-extensions
 django-cpf-cnpj
 pytest
 drf-yasg
+pycodestyle
+flake8
