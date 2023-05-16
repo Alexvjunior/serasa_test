@@ -5,7 +5,6 @@ from rest_framework.authtoken.models import Token
 from apps.user_api.serializers import UserAPISerializer
 from apps.user_api.models import User
 from rest_framework.views import APIView
-from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
@@ -38,7 +37,5 @@ class TokenObtainView(APIView):
             return Response({
                 'token': token.key,
             })
-            # token = RefreshToken.for_user(user)
-            # return Response({'token': str(token.access_token)})
         else:
-            return Response({'error': 'Credenciais inválidas'}, status=status.HTTP_401_UNAUTHORIZE)
+            return Response({'error': 'Credenciais inválidas'}, status=status.HTTP_401_UNAUTHORIZED)
