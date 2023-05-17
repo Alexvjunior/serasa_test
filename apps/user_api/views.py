@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate
+from django_filters.rest_framework import DjangoFilterBackend
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status, viewsets
@@ -7,6 +8,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from apps.user_api.filters import UserFilter
 from apps.user_api.models import User
 from apps.user_api.serializers import UserAPISerializer
 
@@ -17,6 +19,8 @@ class UserAPIViewSet(viewsets.ModelViewSet):
     serializer_class = UserAPISerializer
     queryset = User.objects.all()
     http_method_names = ["post", "patch", "get", "delete"]
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = UserFilter
 
 
 class TokenObtainView(APIView):
