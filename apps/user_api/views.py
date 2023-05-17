@@ -44,5 +44,6 @@ class TokenObtainView(APIView):
             )
         else:
             return Response(
-                {"error": "Credenciais inválidas"}, status=status.HTTP_401_UNAUTHORIZED
+                {"error": "Credenciais inválidas"},
+                status=status.HTTP_401_UNAUTHORIZED
             )
