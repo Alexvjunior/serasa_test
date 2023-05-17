@@ -45,12 +45,15 @@ class UserTestCase(TestCase):
 
         self.assertEqual(created_user.name, new_user_data["name"])
         self.assertEqual(created_user.email, new_user_data["email"])
-        self.assertEqual(created_user.phone_number, new_user_data["phone_number"])
+        self.assertEqual(
+            created_user.phone_number, new_user_data["phone_number"]
+        )
 
         response_data = response.json()
         self.assertEqual(response_data["name"], new_user_data["name"])
         self.assertEqual(response_data["email"], new_user_data["email"])
-        self.assertEqual(response_data["phone_number"], new_user_data["phone_number"])
+        self.assertEqual(
+            response_data["phone_number"], new_user_data["phone_number"])
 
     def test_retrieve_user(self):
         url = reverse("user-detail", args=[self.user.id])
