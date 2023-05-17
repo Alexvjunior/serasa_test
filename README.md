@@ -101,7 +101,7 @@ This endpoint allows you to create a new user.
 #### Método HTTP:
 `POST`
 
-###Payload
+### Payload
 ```json
 "name": "string",
 "cpf": "string",
@@ -109,7 +109,7 @@ This endpoint allows you to create a new user.
 "phone_number": "string"
 ```
 
-###Resposta
+### Resposta
 ```json
 "id": 1,
 "created": "string",
@@ -126,7 +126,7 @@ Returns a specific user
 #### Método HTTP:
 `GET`
 
-###Resposta
+### Resposta
 ```json
 "id": 1,
 "created": "string",
@@ -143,7 +143,7 @@ Returns a list of users.
 #### Método HTTP:
 `GET`
 
-###Resposta
+### Resposta
 ```json
 "count": 1,
 "next": "string",
@@ -159,6 +159,55 @@ Returns a list of users.
         "phone_number": "string"
     }
 ]
+```
+
+### Endpoint 4: `/user/{id}`
+#### Descrição:
+Delete user.
+#### Método HTTP:
+`DELETE`
+
+
+### Endpoint 5: `/user/{id}`
+#### Descrição:
+Update user.
+#### Método HTTP:
+`PATCH`
+
+### Payload
+```json
+"name": "string",
+"cpf": "string",
+"email": "string",
+"phone_number": "string"
+```
+
+### Resposta
+```json
+"id": 1,
+"created": "string",
+"modified": "string",
+"name": "string",
+"cpf": "string",
+"email": "string",
+"phone_number": "string"
+```
+
+### Endpoint 6: `/token/`
+#### Descrição:
+Get Token system User.
+#### Método HTTP:
+`POST`
+
+### Payload
+```json
+"username": "string",
+"password": "string",
+```
+
+### Resposta
+```json
+"token": "string",
 ```
 
 
