@@ -4,7 +4,6 @@ from django_extensions.db.models import TimeStampedModel
 
 
 class User(TimeStampedModel):
-
     name = models.CharField(max_length=255)
 
     cpf = CPFField(masked=True, unique=True)

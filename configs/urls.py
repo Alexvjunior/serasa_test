@@ -23,12 +23,12 @@ from rest_framework import permissions, routers
 from apps.user_api.views import TokenObtainView, UserAPIViewSet
 
 router = routers.SimpleRouter()
-router.register(r'user', UserAPIViewSet, basename='user')
+router.register(r"user", UserAPIViewSet, basename="user")
 
 schema_view = get_schema_view(
     openapi.Info(
         title="Serasa User API",
-        default_version='v1',
+        default_version="v1",
         description="API for managing users",
         terms_of_service="https://www.example.com/terms/",
         contact=openapi.Contact(email="contact@example.com"),
@@ -39,9 +39,12 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include(router.urls)),
-    path('docs/', schema_view.with_ui('swagger',
-         cache_timeout=0), name='schema-swagger-ui'),
-    path('token/', TokenObtainView.as_view(), name='token_obtain_pair'),
+    path("admin/", admin.site.urls),
+    path("", include(router.urls)),
+    path(
+        "docs/",
+        schema_view.with_ui("swagger", cache_timeout=0),
+        name="schema-swagger-ui",
+    ),
+    path("token/", TokenObtainView.as_view(), name="token_obtain_pair"),
 ]
