@@ -6,7 +6,7 @@ on:
       - '*'
 
 jobs:
-  setup:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,11 +21,6 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-  tests:
-    needs: setup
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Run tests
         run: python manage.py test
 
