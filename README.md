@@ -2,7 +2,7 @@
 
 This is a Django project for the Serasa test.
 
-## Setup
+## **Setup**
 
 1. Clone the repository:
 ```bash
@@ -21,11 +21,13 @@ docker-compose build
 
 4. Start the containers:
 ```bash
-docker-compose up -d    
+docker-compose up -d
+or
+make run  
 ```
 
 
-## Running the Tests
+## **Running the Tests**
 
 To run the tests, use the following command:
 ```bash
@@ -35,7 +37,7 @@ make test
 ```
 
 
-## Code Quality and Security
+## **Code Quality and Security**
 
 To ensure code quality and enhance security, the following tools are integrated into the project:
 
@@ -74,21 +76,141 @@ or
 make security
 ```
 
-## Swagger API Documentation
+
+## **Swagger API Documentation**
 
 The project includes Swagger for API documentation. After starting the containers, you can access the Swagger UI at [http://localhost:8000/swagger/](http://localhost:8000/swagger/).
 
-## Available Makefile Commands
+## **Available Makefile Commands**
 The project includes a Makefile with several useful commands:
 
-make format: Format the code using isort and black.
-make lint: Run flake8 for linting the code.
-make test: Run pytest for running tests.
-make security: Perform a security check on the project dependencies using Safety.
-make run: Run the application using docker compose.
-make clean: Clean up the project by removing the virtual environment and cached files.
+- make format: Format the code using isort and black.
+- make lint: Run flake8 for linting the code.
+- make test: Run pytest for running tests.
+- make security: Perform a security check on the project dependencies using Safety.
+- make run: Run the application using docker compose.
+- make clean: Clean up the project by removing the virtual environment and cached files.
 
 
-## License
+## **API Endpoints**
+Listed below are all endpoints available in the API, along with the required payloads and expected responses.
+
+### Endpoint 1: `/user/`
+#### Descrição:
+This endpoint allows you to create a new user.
+#### Método HTTP:
+`POST`
+
+### Payload
+```json
+"name": "string",
+"cpf": "string",
+"email": "string",
+"phone_number": "string"
+```
+
+### Resposta
+```json
+"id": 1,
+"created": "string",
+"modified": "string",
+"name": "string",
+"cpf": "string",
+"email": "string",
+"phone_number": "string"
+```
+
+### Endpoint 2: `/user/{id}`
+#### Descrição:
+Returns a specific user
+#### Método HTTP:
+`GET`
+
+### Resposta
+```json
+"id": 1,
+"created": "string",
+"modified": "string",
+"name": "string",
+"cpf": "string",
+"email": "string",
+"phone_number": "string"
+```
+
+### Endpoint 3: `/user/?limit=&offset=`
+#### Descrição:
+Returns a list of users.
+#### Método HTTP:
+`GET`
+
+### Resposta
+```json
+"count": 1,
+"next": "string",
+"previous": "string",
+"results":[
+    {
+        "id": 1,
+        "created": "string",
+        "modified": "string",
+        "name": "string",
+        "cpf": "string",
+        "email": "string",
+        "phone_number": "string"
+    }
+]
+```
+
+### Endpoint 4: `/user/{id}`
+#### Descrição:
+Delete user.
+#### Método HTTP:
+`DELETE`
+
+
+### Endpoint 5: `/user/{id}`
+#### Descrição:
+Update user.
+#### Método HTTP:
+`PATCH`
+
+### Payload
+```json
+"name": "string",
+"cpf": "string",
+"email": "string",
+"phone_number": "string"
+```
+
+### Resposta
+```json
+"id": 1,
+"created": "string",
+"modified": "string",
+"name": "string",
+"cpf": "string",
+"email": "string",
+"phone_number": "string"
+```
+
+### Endpoint 6: `/token/`
+#### Descrição:
+Get Token system User.
+#### Método HTTP:
+`POST`
+
+### Payload
+```json
+"username": "string",
+"password": "string",
+```
+
+### Resposta
+```json
+"token": "string",
+```
+
+
+## **License**
 
 This project is licensed under the [MIT License](LICENSE).
