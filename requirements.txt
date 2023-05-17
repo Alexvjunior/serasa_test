@@ -9,3 +9,4 @@ pytest
 drf-yasg
 pycodestyle
 flake8
+isort

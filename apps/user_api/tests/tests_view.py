@@ -3,7 +3,6 @@ from django.urls import reverse
 from rest_framework.test import APIClient
 from rest_framework import status
 from apps.user_api.models import User
-import pytest
 from django.contrib.auth.models import User as UserDjango
 
 
@@ -12,7 +11,11 @@ class UserTestCase(TestCase):
         self.user_django = UserDjango.objects.create_user(
             username='testuser', password='testpassword')
         self.user = User.objects.create(
-            name='John Doe', cpf='12345678901', email='johndoe@example.com', phone_number='1234567890')
+            name='John Doe',
+            cpf='12345678901',
+            email='johndoe@example.com',
+            phone_number='1234567890'
+        )
         self.client = APIClient()
         self.client_not_authorization = APIClient()
         self.client.force_authenticate(user=self.user_django)
