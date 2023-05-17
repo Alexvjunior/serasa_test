@@ -1,9 +1,10 @@
+from django.contrib.auth.models import User as UserDjango
 from django.test import TestCase
 from django.urls import reverse
-from rest_framework.test import APIClient
 from rest_framework import status
+from rest_framework.test import APIClient
+
 from apps.user_api.models import User
-from django.contrib.auth.models import User as UserDjango
 
 
 class UserTestCase(TestCase):

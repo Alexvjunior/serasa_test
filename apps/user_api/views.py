@@ -1,13 +1,14 @@
-from rest_framework import viewsets, status
-from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.authtoken.models import Token
-from apps.user_api.serializers import UserAPISerializer
-from apps.user_api.models import User
-from rest_framework.views import APIView
 from django.contrib.auth import authenticate
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
+from rest_framework import status, viewsets
+from rest_framework.authtoken.models import Token
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from apps.user_api.models import User
+from apps.user_api.serializers import UserAPISerializer
 
 
 class UserAPIViewSet(viewsets.ModelViewSet):

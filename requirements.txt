@@ -10,3 +10,6 @@ drf-yasg
 pycodestyle
 flake8
 isort
+safety
+setuptools==67.7.2
+wheel==0.40.0
