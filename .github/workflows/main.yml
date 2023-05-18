@@ -37,7 +37,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run tests
-        run: python serasa_user_api/manage.py test
+        run: python manage.py test
 
       - name: Check Lint
         run: flake8 apps
