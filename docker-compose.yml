@@ -8,6 +8,10 @@ services:
       POSTGRES_PASSWORD: postgres
     ports:
       - "5432:5432"
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
 
   web:
     build:
@@ -20,13 +24,10 @@ services:
       - 8000:8000
     depends_on:
       - db
+      - redis
     environment:
       DBHOST: db
+      REDIS_URL: redis://redis:6379
   
-  redis:
-    image: redis
-    ports:
-      - "6379:6379"
-
 volumes:
   postgres_data:

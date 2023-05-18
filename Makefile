@@ -17,22 +17,30 @@ venv:
 	pip install --upgrade pip && \
 	pip install -r requirements.txt
 
-# Formatting
-format: venv
-	isort .
-	black .
-
 # Linting
 lint: venv
+	isort .
 	flake8 apps
 
 # Testing
 test:
 	docker compose exec web python manage.py test 
 
-# Run the application
-run:
+# Build the applications
+build:
+	docker compose build
+
+# Run the applications
+run: build
 	docker compose up -d
+
+# Run the postgres application
+run-postgres:
+	docker compose up db -d
+
+# Run the redis application
+run-redis:
+	docker compose up redis -d	
 
 # Clean up
 clean:

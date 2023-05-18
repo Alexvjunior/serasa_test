@@ -84,11 +84,12 @@ The project includes Swagger for API documentation. After starting the container
 ## **Available Makefile Commands**
 The project includes a Makefile with several useful commands:
 
-- make format: Format the code using isort and black.
 - make lint: Run flake8 for linting the code.
 - make test: Run pytest for running tests.
 - make security: Perform a security check on the project dependencies using Safety.
 - make run: Run the application using docker compose.
+- make run-postgres: Run the postgres application using docker
+- make run-redis: Run the redis application using docker
 - make clean: Clean up the project by removing the virtual environment and cached files.
 
 
