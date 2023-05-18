@@ -31,8 +31,14 @@ test:
 	docker compose exec web python manage.py test 
 
 # Run the application
-run:
-	docker compose up -d
+run: run-postgres run-redis
+	docker compose up web -d
+
+run-postgres:
+	docker compose up db -d
+
+run-redis:
+	docker compose up redis -d	
 
 # Clean up
 clean:
