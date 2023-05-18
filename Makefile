@@ -30,13 +30,19 @@ lint: venv
 test:
 	docker compose exec web python manage.py test 
 
-# Run the application
-run: run-postgres run-redis
-	docker compose up web -d
+# Build the applications
+build:
+	docker compose build
 
+# Run the applications
+run: build
+	docker compose up -d
+
+# Run the postgres application
 run-postgres:
 	docker compose up db -d
 
+# Run the redis application
 run-redis:
 	docker compose up redis -d	
 

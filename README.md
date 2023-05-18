@@ -89,6 +89,8 @@ The project includes a Makefile with several useful commands:
 - make test: Run pytest for running tests.
 - make security: Perform a security check on the project dependencies using Safety.
 - make run: Run the application using docker compose.
+- make run-postgres: Run the postgres application using docker
+- make run-redis: Run the redis application using docker
 - make clean: Clean up the project by removing the virtual environment and cached files.
 
 

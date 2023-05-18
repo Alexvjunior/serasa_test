@@ -10,7 +10,7 @@ class Cache:
 
     async def setup(self) -> None:
         if not self._redis:
-            self.redis = await aioredis.from_url(settings.REDIS_URL)
+            self.redis = await aioredis.create_redis_pool(settings.REDIS_URL)
 
     async def get_cache(
         self,
