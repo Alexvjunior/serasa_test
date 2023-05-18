@@ -5,6 +5,11 @@ on:
     branches:
       - '*'
 
+services:
+  - name: postgres
+    alias: db
+  - name: redis:alpine
+
 jobs:
   build:
     runs-on: ubuntu-latest
