@@ -6,7 +6,7 @@ on:
       - '*'
 
 jobs:
-  setup:
+  build:
     runs-on: ubuntu-latest
 
     services:
@@ -36,11 +36,6 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-  tests:
-    needs: setup
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Run tests
         run: python serasa_user_api/manage.py test
 
