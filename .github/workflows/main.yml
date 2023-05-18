@@ -36,9 +36,6 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Wait for database
-        run: dockerize -wait tcp://localhost:5432 -timeout 1m
-
   tests:
     needs: setup
     runs-on: ubuntu-latest
