@@ -1,4 +1,7 @@
+import asyncio
+
 from django.contrib.auth import authenticate
+from django_filters.rest_framework import DjangoFilterBackend
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status, viewsets
@@ -7,16 +10,27 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from apps.user_api.filters import UserFilter
 from apps.user_api.models import User
 from apps.user_api.serializers import UserAPISerializer
+from apps.user_api.services import UserService
 
 
 class UserAPIViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     basename = "user"
+    service = UserService()
     serializer_class = UserAPISerializer
     queryset = User.objects.all()
     http_method_names = ["post", "patch", "get", "delete"]
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = UserFilter
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        asyncio.run(self.service.delete_cache((instance.cpf.raw_input)))
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class TokenObtainView(APIView):
