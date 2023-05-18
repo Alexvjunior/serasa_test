@@ -42,7 +42,7 @@ jobs:
 
     steps:
       - name: Run tests
-        run: python manage.py test
+        run: python serasa_user_api/manage.py test
 
       - name: Check Lint
         run: flake8 apps
