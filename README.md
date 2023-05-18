@@ -137,9 +137,9 @@ Returns a specific user
 "phone_number": "string"
 ```
 
-### Endpoint 3: `/user/?limit=&offset=`
+### Endpoint 3: `/user/?limit=&offset=&cpf=`
 #### Descrição:
-Returns a list of users.
+Returns a list of users. You can user cpf filter too.
 #### Método HTTP:
 `GET`
 

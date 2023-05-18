@@ -18,6 +18,18 @@ class UserTestCase(TestCase):
             email="johndoe@example.com",
             phone_number="1234567890",
         )
+        self.user2 = User.objects.create(
+            name="John 2",
+            cpf="987654321",
+            email="johndoe2@example.com",
+            phone_number="1234567890",
+        )
+        self.user3 = User.objects.create(
+            name="John 3",
+            cpf="1234234234",
+            email="johndoe3@example.com",
+            phone_number="1234567890",
+        )
         self.client = APIClient()
         self.client_not_authorization = APIClient()
         self.client.force_authenticate(user=self.user_django)
@@ -26,7 +38,7 @@ class UserTestCase(TestCase):
         url = reverse("user-list")
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json()["count"], 1)
+        self.assertEqual(response.json()["count"], 3)
 
     def test_create_user(self):
         new_user_data = {
@@ -39,15 +51,16 @@ class UserTestCase(TestCase):
         response = self.client.post(url, data=new_user_data)
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(User.objects.count(), 2)
+        self.assertEqual(User.objects.count(), 4)
 
         created_user = User.objects.get(cpf=new_user_data["cpf"])
 
         self.assertEqual(created_user.name, new_user_data["name"])
         self.assertEqual(created_user.email, new_user_data["email"])
         self.assertEqual(
-            created_user.phone_number, new_user_data["phone_number"]
-        )
+            created_user.phone_number,
+            new_user_data["phone_number"]
+            )
 
         response_data = response.json()
         self.assertEqual(response_data["name"], new_user_data["name"])
@@ -153,3 +166,19 @@ class UserTestCase(TestCase):
         url = reverse("user-list")
         response = self.client_not_authorization.post(url, data={})
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_filter_users_by_cpf(self):
+        url = reverse("user-list")
+        response = self.client.get(f"{url}?cpf=123")
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data["results"]), 2)
+        self.assertEqual(response.data["results"][0]["name"], "John Doe")
+        self.assertEqual(response.data["results"][1]["name"], "John 3")
+
+    def test_filter_users_by_nonexistent_cpf(self):
+        url = reverse("user-list")
+        response = self.client.get(f"{url}?cpf=999.")
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data["results"]), 0)

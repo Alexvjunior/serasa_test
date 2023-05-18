@@ -18,7 +18,7 @@ venv:
 	pip install -r requirements.txt
 
 # Formatting
-format: venvfor
+format: venv
 	isort .
 	black .
 
