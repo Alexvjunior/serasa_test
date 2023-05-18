@@ -17,13 +17,9 @@ venv:
 	pip install --upgrade pip && \
 	pip install -r requirements.txt
 
-# Formatting
-format: venv
-	isort .
-	black .
-
 # Linting
 lint: venv
+	isort .
 	flake8 apps
 
 # Testing

@@ -66,7 +66,9 @@ class UserTestCase(TestCase):
         self.assertEqual(response_data["name"], new_user_data["name"])
         self.assertEqual(response_data["email"], new_user_data["email"])
         self.assertEqual(
-            response_data["phone_number"], new_user_data["phone_number"])
+            response_data["phone_number"],
+            new_user_data["phone_number"]
+            )
 
     def test_retrieve_user(self):
         url = reverse("user-detail", args=[self.user.id])

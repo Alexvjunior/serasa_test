@@ -84,7 +84,6 @@ The project includes Swagger for API documentation. After starting the container
 ## **Available Makefile Commands**
 The project includes a Makefile with several useful commands:
 
-- make format: Format the code using isort and black.
 - make lint: Run flake8 for linting the code.
 - make test: Run pytest for running tests.
 - make security: Perform a security check on the project dependencies using Safety.

@@ -1,3 +1,5 @@
+import asyncio
+
 from django.contrib.auth import authenticate
 from django_filters.rest_framework import DjangoFilterBackend
 from drf_yasg import openapi
@@ -7,7 +9,6 @@ from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-import asyncio
 
 from apps.user_api.filters import UserFilter
 from apps.user_api.models import User
@@ -30,7 +31,7 @@ class UserAPIViewSet(viewsets.ModelViewSet):
         self.perform_destroy(instance)
         asyncio.run(self.service.delete_cache((instance.cpf.raw_input)))
         return Response(status=status.HTTP_204_NO_CONTENT)
-    
+
 
 class TokenObtainView(APIView):
     @swagger_auto_schema(
