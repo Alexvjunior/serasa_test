@@ -29,7 +29,7 @@ class UserAPIViewSet(viewsets.ModelViewSet):
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
         self.perform_destroy(instance)
-        asyncio.run(self.service.delete_cache((instance.cpf.raw_input)))
+        asyncio.run(self.service.delete_cache((instance.cpf)))
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
