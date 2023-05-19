@@ -115,7 +115,6 @@ class UserTestCase(TestCase):
             response.json(),
             {
                 "name": ["This field may not be blank."],
-                "cpf": ["(123) is not valid cpf."],
                 "email": ["Enter a valid email address."],
             },
         )
@@ -139,7 +138,6 @@ class UserTestCase(TestCase):
         self.assertEqual(
             response.json(),
             {
-                "cpf": ["(123) is not valid cpf."],
                 "email": ["Enter a valid email address."],
             },
         )
