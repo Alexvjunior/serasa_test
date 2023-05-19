@@ -43,7 +43,7 @@ class UserTestCase(TestCase):
     def test_create_user(self):
         new_user_data = {
             "name": "Jane Smith",
-            "cpf": "1234567890",
+            "cpf": "13773911084",
             "email": "jane.smith@example.com",
             "phone_number": "9876543210",
         }
@@ -114,6 +114,7 @@ class UserTestCase(TestCase):
         self.assertEqual(
             response.json(),
             {
+                "cpf": ["CPF deve conter 11 números"],
                 "name": ["This field may not be blank."],
                 "email": ["Enter a valid email address."],
             },
@@ -138,6 +139,7 @@ class UserTestCase(TestCase):
         self.assertEqual(
             response.json(),
             {
+                "cpf": ["CPF deve conter 11 números"],
                 "email": ["Enter a valid email address."],
             },
         )
