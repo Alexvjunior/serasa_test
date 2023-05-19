@@ -1,5 +1,6 @@
-from rest_framework import serializers
 from cpf_field.validators import validate_cpf
+from rest_framework import serializers
+
 from apps.user_api.models import User
 
 
