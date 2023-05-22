@@ -1,17 +1,17 @@
-# Serasa Test Project
+# Serasa User Project
 
-This is a Django project for the Serasa test.
+This is a Django project for the Serasa user.
 
 ## **Setup**
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/Alexvjunior/serasa_test.git
+git clone https://github.com/Alexvjunior/serasa_user_api.git
 ```
 
 2. Navigate to the project directory:
 ```bash
-cd serasa_test
+cd serasa_user_api
 ```
 
 3. Build the Docker images:
@@ -79,7 +79,7 @@ make security
 
 ## **Swagger API Documentation**
 
-The project includes Swagger for API documentation. After starting the containers, you can access the Swagger UI at [http://localhost:8000/swagger/](http://localhost:8000/swagger/).
+The project includes Swagger for API documentation. After starting the containers, you can access the Swagger UI at [http://localhost:8000/docs/](http://localhost:8000/docs/).
 
 ## **Available Makefile Commands**
 The project includes a Makefile with several useful commands:
